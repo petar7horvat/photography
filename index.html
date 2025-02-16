@@ -56,29 +56,35 @@ https://templatemo.com/tm-520-highway
 
     <nav>
         <div class="logo">
-            <a href="index.html" style="color: white;">PH<em style="color:rgb(171, 171, 171)">otography</em></a>
+            <a href="index.html">PH<em style="color:rgb(128, 128, 128)">otography</em></a>
         </div>
       <div class="menu-icon">
         <span></span>
       </div>
     </nav>
 
-    <div id="video-container">
-        <div class="video-overlay"></div>
-        <div class="video-content">
+    <div id="video-container" style="position: relative; width: 100vw; height: 100vh; overflow: hidden;">
+    
+        <!-- Dodajemo overlay sloj za zatamnjenje -->
+        <div style="position: absolute; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 1;"></div>
+    
+        <div class="video-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; z-index: 2;">
             <div class="inner">
-              <h1 style="font-size: 32px;">Petar Horvat <em>Photography</em></h1>
-              <i><p style="font-size: 20px;">"What do we driving?"</p></i>
-              <!-- <p>Homepage with masonry image gallery</p> -->
+                <h1 style="font-size: 32px; color: white;">Petar Horvat <em>Photography</em></h1>
+                <i><p style="font-size: 20px;">"What do we driving?"</p></i>
                 <div class="scroll-icon">
                     <a class="scrollTo" data-scrollTo="masonry" href="#"><img src="img/scroll-icon.png" alt=""></a>
                 </div>    
             </div>
         </div>
-        <video autoplay="" loop="" muted>
-        	<source src="highway-loop.mp4" type="video/mp4" />
+    
+        <video autoplay loop muted playsinline style="position: absolute; top: 50%; left: 50%; width: 100vw; height: 100vh; object-fit: cover; transform: translate(-50%, -50%); z-index: 0;">
+            <source src="highway-loop.mp4" type="video/mp4" />
         </video>
     </div>
+    
+    
+    
 
 
     <div class="masonry-portfolio" id="masonry">
