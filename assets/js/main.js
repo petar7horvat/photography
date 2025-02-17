@@ -278,4 +278,30 @@
 					$main[0]._poptrox.windowMargin = 50;
 				});
 
+				
+		// --- DETEKCIJA SWIPE GESTOVA ---
+		var touchStartX = 0, touchEndX = 0;
+
+		$body.on('touchstart', function(event) {
+			touchStartX = event.originalEvent.touches[0].clientX;
+		});
+
+		$body.on('touchmove', function(event) {
+			touchEndX = event.originalEvent.touches[0].clientX;
+		});
+
+		$body.on('touchend', function() {
+			var diff = touchStartX - touchEndX;
+
+			// Ako je razlika veća od 50px, smatra se swipe gestom
+			if (Math.abs(diff) > 50) {
+				if (diff > 0) {
+					// Swipe levo (sledeća slika)
+					$main[0]._poptrox.next();
+				} else {
+					// Swipe desno (prethodna slika)
+					$main[0]._poptrox.previous();
+				}
+			}
+		});
 })(jQuery);
