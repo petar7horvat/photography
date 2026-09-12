@@ -204,8 +204,6 @@ async function initAlbum() {
     return;
   }
     const fragment = document.createDocumentFragment();
-    const thumbnailQueue = [];
-
     album.photos.forEach((photo, i) => {
     const figure = document.createElement('figure'); figure.className = 'photo-item';
     const link = document.createElement('a'); link.className = 'photo-link';
@@ -221,67 +219,26 @@ async function initAlbum() {
     img.alt = photo.alt;
     img.width = photo.width;
     img.height = photo.height;
-    img.loading = 'eager';
+    img.loading = i < 3 ? 'eager' : 'lazy';
     img.decoding = 'async';
 
     photo.thumb = previewSrc;
 
-    /*
-    * Za sada ne postavljamo img.src.
-    * Samo dodajemo sliku u red za kasnije učitavanje.
-    */
-    thumbnailQueue.push({
-      img,
-      link,
-      src: previewSrc
-    });
+    img.addEventListener('error', () => {
+      img.alt = 'Sličica trenutno nije dostupna.';
+      link.classList.add('image-unavailable');
 
+      console.warn('Proveri putanju sličice:', previewSrc);
+    }, { once: true });
+
+    img.src = previewSrc;
     link.append(img);
     figure.append(link); fragment.append(figure);
   });
 grid.append(fragment);
 setupMasonry(grid);
 $('#album-status').hidden = true;
-
 await enableViewer(album, grid);
-
-/*
- * Čekamo dva frejma kako bi pregledač prvo iscrtao:
- * naslov, navigaciju, raspored galerije i prazna mesta za slike.
- */
-await new Promise(resolve => {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(resolve);
-  });
-});
-
-/*
- * Učitavanje thumbnaila tačno jedne po jedne.
- * Sledeća počinje tek kada se prethodna učita ili prijavi grešku.
- */
-for (const item of thumbnailQueue) {
-  await new Promise(resolve => {
-    const finish = () => {
-      requestAnimationFrame(resolve);
-    };
-
-    item.img.addEventListener('load', finish, {
-      once: true
-    });
-
-    item.img.addEventListener('error', () => {
-      item.img.alt = 'Sličica trenutno nije dostupna.';
-      item.link.classList.add('image-unavailable');
-
-      console.warn('Proveri putanju sličice:', item.src);
-      finish();
-    }, {
-      once: true
-    });
-
-    item.img.src = item.src;
-  });
-}
 }
 
 async function enableViewer(album, grid) {
