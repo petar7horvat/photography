@@ -1,0 +1,19 @@
+/* BOJE SAJTA
+   U VS Code-u klikni na kvadratić pored HEX boje i izaberi novu.
+   Sačuvaj fajl i osveži stranicu. Nije potrebno pokretati generator.
+*/
+:root {
+  /* Akcenti: aktivna galerija, dugmad, linkovi i fokus tastature. */
+  --accent: #efbe8b;
+  --accent-hover: #f9aa57;
+  --on-accent: #101210; /* Tekst na obojenoj pozadini. */
+
+  /* Ostale boje — menjaj samo ako želiš drugačiju temu. */
+  --bg: #101210;
+  --surface: #191c18;
+  --menu-bg: #131611;
+  --text: #f3f4ef;
+  --muted: #a5aaa0;
+  --line: #ffffff26;
+  --photo-text: #ffffff;
+}
