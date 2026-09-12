@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Sitemap sa javnom adresom napravi pomocu priprema.html.
