@@ -37,13 +37,13 @@ function setupMasonry(grid) {
     });
     grid.style.height = `${result.height + parseFloat(style.paddingBottom)}px`;
   };
-  items.forEach(item => {
-    const img = item.querySelector('img');
-    img.addEventListener('load', () => {
-      if (img.naturalWidth) { img.width = img.naturalWidth; img.height = img.naturalHeight; }
-      layout();
-    });
-  });
+  // items.forEach(item => {
+  //   const img = item.querySelector('img');
+  //   img.addEventListener('load', () => {
+  //     if (img.naturalWidth) { img.width = img.naturalWidth; img.height = img.naturalHeight; }
+  //     layout();
+  //   });
+  // });
   layout();
   if ('ResizeObserver' in window) new ResizeObserver(layout).observe(grid);
   else window.addEventListener('resize', layout, { passive: true });

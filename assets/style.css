@@ -295,3 +295,29 @@ em{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.
 .page-contact .contact-page{animation:contact-enter 340ms var(--ease) both}
 @keyframes contact-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:700px){.collection-info h2{font-size:24px}}
+/* Lakši prikaz fotografija na uređajima sa ekranom na dodir. */
+@media (hover: none) and (pointer: coarse) {
+  .collection-image img,
+  .collection:hover .collection-image img,
+  .photo-link img,
+  .photo-link:hover img {
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+
+  /* Zadržava kratko pojavljivanje, bez pomeranja kartica. */
+  .collection.reveal {
+    translate: none;
+    transition: opacity 200ms ease;
+  }
+
+  .collection.reveal.is-pending {
+    translate: none;
+  }
+
+  .hero-image {
+    animation: none;
+    transform: none;
+  }
+}

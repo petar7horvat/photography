@@ -1092,13 +1092,10 @@
                 ]
               : [])
           ])
-        ].map(
-          file =>
-            new URL(
-              `slike/cover/${encodeURIComponent(file)}`,
-              document.baseURI
-            ).href
-        );
+        ].map(file => new URL(
+  `${id === 'kontakt' ? 'slike/cover' : 'slike/cover/thumbs'}/${encodeURIComponent(file)}`,
+  document.baseURI
+).href);
 
         const fallback =
           albums.find(

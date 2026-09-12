@@ -209,18 +209,36 @@ async function initAlbum() {
     const link = document.createElement('a'); link.className = 'photo-link';
     link.href = photo.src; link.dataset.index = i;
     link.setAttribute('aria-label', `Otvori fotografiju ${i + 1}: ${photo.title}`);
-    const img = document.createElement('img'); img.src = photo.thumb || photo.src;
-    if (photo.srcset) { img.srcset = photo.srcset; img.sizes = '(max-width: 360px) 90vw, (max-width: 700px) 44vw, (max-width: 1000px) 43vw, 28vw'; }
-    img.alt = photo.alt; img.width = photo.width; img.height = photo.height;
-    img.loading = i < 3 ? 'eager' : 'lazy'; img.decoding = 'async';
-    img.addEventListener('load', () => {
-      photo.width = img.naturalWidth; photo.height = img.naturalHeight; photo.measured = true;
-      img.width = photo.width; img.height = photo.height;
-    }, { once: true });
+    const previewSrc = new URL(
+      `slike/${album.id}/thumbs/${encodeURIComponent(photo.file)}`,
+      document.baseURI
+    ).href;
+
+    const img = document.createElement('img');
+
+    img.alt = photo.alt;
+    img.width = photo.width;
+    img.height = photo.height;
+    img.loading = i < 3 ? 'eager' : 'lazy';
+    img.decoding = 'async';
+
+    photo.thumb = previewSrc;
+
+    let originalAttempted = false;
+
     img.addEventListener('error', () => {
+      if (!originalAttempted) {
+        originalAttempted = true;
+        photo.thumb = photo.src;
+        img.src = photo.src;
+        return;
+      }
+
       img.alt = `Fotografija trenutno nije dostupna: ${photo.title}`;
       link.classList.add('image-unavailable');
-    }, { once: true });
+    });
+
+    img.src = previewSrc;
     link.append(img);
     figure.append(link); fragment.append(figure);
   });
