@@ -25,7 +25,7 @@
   background-size: cover;
   background-position: center;
   transform: scale(1.12);
-  filter: blur(var(--album-video-blur)) brightness(.7);
+  filter: blur(var(--album-video-blur)) brightness(.76);
   pointer-events: none;
 }
 .album-video-blur-frame {
@@ -53,7 +53,8 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(180deg, #0008 0%, #0001 35%, #0007 70%, var(--bg) 100%);
+  /* Previous vertical fade, with slightly lighter shading. */
+  background: linear-gradient(180deg, rgb(0 0 0 / .45) 0%, rgb(0 0 0 / .05) 35%, rgb(0 0 0 / .38) 70%, var(--bg) 100%);
 }
 .album-hero .album-intro { padding-top: 50px; padding-bottom: 46px; }
 .album-hero .back-link { color: #ffffffd9; margin-bottom: 22px; }
@@ -84,3 +85,15 @@
 .next-album-link { display: block; width: 100%; padding-block: 12px; }
 .next-album-title { display: flex; align-items: center; gap: 18px; }
 .next-album-link:hover .next-album-title { color: var(--accent); }
+
+/* Reveal decoded video smoothly, without showing a cover during loading. */
+.album-background-video { opacity: 0; transition: opacity .35s ease; }
+.has-video-frame .album-background-video { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .album-background-video { transition: none; }
+}
+
+/* The cover is a clear photograph when no video can be played. */
+.has-video-fallback .album-video-backdrop { filter: none; transform: none; }
+.has-video-fallback .album-video-blur-frame,
+.has-video-fallback .album-background-video { opacity: 0; }

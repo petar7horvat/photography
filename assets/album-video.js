@@ -13,7 +13,7 @@
     const connection = navigator.connection;
     const listed = window.SNIMCI?.[id];
     const validName = new RegExp('^' + id + '(?:[1-9][0-9]*)?\\.mp4$', 'i');
-    const files = [...new Set((Array.isArray(listed) && listed.length ? listed : [id + '1.mp4'])
+    const files = [...new Set((Array.isArray(listed) ? listed : [id + '1.mp4'])
       .filter(name => typeof name === 'string' && validName.test(name)))];
     // Shuffle filenames only. No requests are made for the other videos.
     for (let i = files.length - 1; i > 0; i--) {
@@ -22,8 +22,11 @@
     }
     const cover = window.FOTOGRAFIJE?._covers?.[id] || id + '.jpg';
     const poster = new URL('slike/cover/thumbs/' + encodeURIComponent(cover), document.baseURI).href;
-    backdrop.style.backgroundImage = 'url(' + JSON.stringify(poster) + ')';
-    video.poster = poster;
+    // Do not request or display the cover while a video is loading.
+    function showFallback(show) {
+      hero.classList.toggle('has-video-fallback', !!show);
+      backdrop.style.backgroundImage = show ? 'url(' + JSON.stringify(poster) + ')' : '';
+    }
     video.muted = true;
     video.defaultMuted = true;
     video.loop = true;
@@ -38,6 +41,7 @@
     let candidate = 0;
     let generation = 0;
     let paintedGeneration = -1;
+    showFallback(exhausted || motion.matches || !!connection?.saveData);
 
     function sizeToVideo() {
       const vw = video.videoWidth;
@@ -73,19 +77,20 @@
         paintedGeneration = generation;
         hero.classList.add('has-video-blur-frame');
       } catch {
-        // The blurred cover is already present if frame capture is unavailable.
+        // Keep the neutral backdrop if frame capture is unavailable.
       }
     }
     video.addEventListener('loadedmetadata', sizeToVideo);
     video.addEventListener('loadeddata', paintBackdrop);
 
     function canPlay() {
-      return ready && visible && !document.hidden && !blocked && !exhausted
-        && !document.body.classList.contains('viewer-open')
+      return ready && (visible || document.body.classList.contains('viewer-open'))
+        && !document.hidden && !blocked && !exhausted
         && !document.body.classList.contains('menu-open')
         && (!motion.matches && !connection?.saveData);
     }
     function sync() {
+      showFallback(exhausted || blocked || motion.matches || !!connection?.saveData);
       if (!canPlay()) {
         video.pause();
 
@@ -99,7 +104,10 @@
       pending = true;
       const attempt = generation;
       video.play().catch(error => {
-        if (attempt === generation && error.name === 'NotAllowedError') blocked = true;
+        if (attempt === generation && error.name === 'NotAllowedError') {
+          blocked = true;
+          showFallback(true);
+        }
       }).finally(() => {
         if (attempt !== generation) return;
         pending = false;
@@ -123,7 +131,7 @@
       exhausted = candidate >= files.length;
 
       // Try another listed clip only if this one is absent or unsupported.
-      if (!exhausted) sync();
+      sync();
     });
     motion.addEventListener('change', sync);
     connection?.addEventListener('change', sync);

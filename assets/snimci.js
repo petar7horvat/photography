@@ -3,7 +3,8 @@ window.SNIMCI = {
     "automobili":  [
                        "automobili1.mp4",
                        "automobili2.mp4",
-                       "automobili3.mp4"
+                       "automobili3.mp4",
+                       "automobili4.mp4"
                    ],
     "portreti":  [
                      "portreti1.mp4",

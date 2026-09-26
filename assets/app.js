@@ -285,7 +285,7 @@ async function enableViewer(album, grid) {
       imageClickAction: 'zoom', clickToCloseNonZoomable: false,
       doubleTapAction: 'zoom', tapAction: 'toggle-controls',
       initialZoomLevel: 'fit',
-      secondaryZoomLevel: zoom => zoom.fit * 1.5,
+      secondaryZoomLevel: zoom => zoom.fit * 1.8,
       maxZoomLevel: 4,
       preload: [1, 2], trapFocus: true, returnFocus: true,
       closeTitle: 'Zatvori fotografiju', zoomTitle: 'Uvećaj ili umanji',
