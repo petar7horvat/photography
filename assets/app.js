@@ -123,7 +123,6 @@ function safeInstagram(value) {
 function configureContact() {
   $$('.brand-name').forEach(el => { el.firstChild.textContent = config.name; });
   $$('.menu-bottom,.hero-topline').forEach(el => { el.textContent = PROFILE.location; });
-  $('.site-footer p').textContent = config.brand;
   const emailSlot = $('#email-slot');
   if (!emailSlot) return;
   $('#contact-name').textContent = config.name;
@@ -189,6 +188,7 @@ async function initAlbum() {
   album.photos = orderAlbumPhotos(album);
   applySEO(route);
   $('#album-title').textContent = album.title;
+  window.PH.initAlbumVideo(album.id);
   $('#album-tabs').replaceChildren(...data.albums.map(a => {
     const link = document.createElement('a'); link.href = galleryHref(a.id);
     link.textContent = a.shortTitle;
@@ -284,7 +284,9 @@ async function enableViewer(album, grid) {
       closeOnVerticalDrag: true, pinchToClose: true,
       imageClickAction: 'zoom', clickToCloseNonZoomable: false,
       doubleTapAction: 'zoom', tapAction: 'toggle-controls',
-      initialZoomLevel: 'fit', secondaryZoomLevel: 1.8, maxZoomLevel: 4,
+      initialZoomLevel: 'fit',
+      secondaryZoomLevel: zoom => zoom.fit * 1.5,
+      maxZoomLevel: 4,
       preload: [1, 2], trapFocus: true, returnFocus: true,
       closeTitle: 'Zatvori fotografiju', zoomTitle: 'Uvećaj ili umanji',
       arrowPrevTitle: 'Prethodna fotografija', arrowNextTitle: 'Sledeća fotografija',

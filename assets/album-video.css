@@ -1,0 +1,86 @@
+/* Video ponovo iza naslova. Uvecanje je ograniceno radi cuvanja kadra. */
+:root {
+  --album-video-max-zoom: 1.18;
+  --album-video-min-height: 340px;
+  --album-video-max-height: min(64svh, 660px);
+  --album-video-blur: 26px;
+  --album-video-edge-fade: clamp(24px, 4vw, 60px);
+}
+.page-gallery .inner-page { padding-top: calc(var(--site-header-height) + 1px); }
+.album-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: var(--album-video-min-height);
+  height: clamp(var(--album-video-min-height), calc(100vw / var(--album-video-ratio, 1.777778)), var(--album-video-max-height));
+  overflow: hidden;
+  background: var(--surface, #182019);
+  color: #fff;
+}
+.album-video-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.12);
+  filter: blur(var(--album-video-blur)) brightness(.7);
+  pointer-events: none;
+}
+.album-video-blur-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+.has-video-blur-frame .album-video-blur-frame { opacity: 1; }
+.album-background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.album-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, #0008 0%, #0001 35%, #0007 70%, var(--bg) 100%);
+}
+.album-hero .album-intro { padding-top: 50px; padding-bottom: 46px; }
+.album-hero .back-link { color: #ffffffd9; margin-bottom: 22px; }
+.album-hero .back-link:hover { color: var(--accent); }
+.album-hero .album-title-row { padding-right: 0; }
+.album-hero .album-title-row h1 { font-size: clamp(44px, 6.2vw, 88px); line-height: 1.05; }
+.page-gallery .album-bar { margin-top: 0; margin-bottom: 36px; padding-top: 26px; }
+@media (max-width: 700px) {
+  :root { --album-video-min-height: 300px; }
+  .album-hero .album-intro { padding-top: 40px; padding-bottom: 34px; }
+    .album-hero .album-title-row h1 { font-size: clamp(40px, 10vw, 58px); }
+  .page-gallery .album-bar { padding-top: 20px; margin-bottom: 24px; }
+}
+
+/* Alpha gradients blend the video edges into the blurred still underneath. */
+.album-background-video {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 var(--album-video-edge-fade), #000 calc(100% - var(--album-video-edge-fade)), transparent),
+    linear-gradient(to bottom, transparent, #000 var(--album-video-edge-fade), #000 calc(100% - var(--album-video-edge-fade)), transparent);
+  mask-image:
+    linear-gradient(to right, transparent, #000 var(--album-video-edge-fade), #000 calc(100% - var(--album-video-edge-fade)), transparent),
+    linear-gradient(to bottom, transparent, #000 var(--album-video-edge-fade), #000 calc(100% - var(--album-video-edge-fade)), transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.next-album-link { display: block; width: 100%; padding-block: 12px; }
+.next-album-title { display: flex; align-items: center; gap: 18px; }
+.next-album-link:hover .next-album-title { color: var(--accent); }
