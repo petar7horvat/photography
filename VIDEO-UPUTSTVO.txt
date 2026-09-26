@@ -42,22 +42,23 @@ popunjavanje zahtevalo vece odsecanje, preostali prostor popunjava blur.
 To ogranicava ukupno odsecanje po jednoj dimenziji na priblizno 15%.
 Blur koristi jedan mali kadar videa, bez dodatnog videa koji se reprodukuje.
 Header je smanjen na 76px na racunaru, odnosno 64px na uskim ekranima.
-Video se pauzira kada zaglavlje izadje iz kadra, kada se otvori fotografija
-ili meni, ili kada se predje u drugi tab. Kontrole videa su uklonjene.
+Video nastavlja da radi dok je pregled uvecanih fotografija otvoren.
+Inace se pauzira van kadra, pri otvaranju menija ili prelasku u drugi tab. Kontrole videa su uklonjene.
 Ako browser blokira autoplay ili je ukljuceno smanjeno kretanje/usteda
 podataka, ostaje poster fotografija.
 Ako snimak nedostaje ili nije podrzan, pokusava drugi iz spiska.
 Ako nijedan ne radi, ostaje cover fotografija iz slike/cover/thumbs/.
-Ako nijedan snimak nije naveden, pokusava podrazumevani naziv broj 1.
+Ako je spisak galerije prazan, odmah prikazuje cover, bez pokusaja ucitavanja videa.
+Ako spisak nedostaje, pokusava podrazumevani naziv broj 1.
 
-IZMENE U VERZIJI 4
+IZMENE U VERZIJI 7
 Uklonjene kontrole videa, linkovi Sve galerije i tekst footera.
 Video pocinje neposredno ispod headera i zadrzava naslov preko sebe.
 Ivice videa se postepeno utapaju u blur, umesto ostre granice.
 Naslovi galerija su malo manji.
 Ceo donji blok Sledeca galerija vodi na prikazanu narednu galeriju.
-Dvoklik/dvostruki dodir povecava fotografiju 1.5 puta u odnosu na pocetni
-prikaz (+50%), a sledeci vraca na pocetni prikaz.
+Dvoklik/dvostruki dodir povecava fotografiju 1.8 puta u odnosu na pocetni
+prikaz (+80%), a sledeci vraca na pocetni prikaz.
 
 PODESAVANJA
 assets/album-video.css:
@@ -75,3 +76,13 @@ Ova izmena ne komprimuje tvoje snimke automatski.
 Promenjeni postojeci fajlovi: index.html, assets/app.js i assets/style.css.
 Dodato: assets/album-video.js, assets/album-video.css, assets/snimci.js,
 Pokreni.bat, Osvezi-snimke.bat i ovo uputstvo.
+
+Tokom ucitavanja videa cover se ne prikazuje niti preuzima.
+Video se pojavljuje blagim prelazom. Cover se ucitava tek ako nijedan
+snimak ne radi ili browser/podesavanja sprece reprodukciju.
+
+Vracen prethodni vertikalni gradijent sa blagim smanjenjem zatamnjenja.
+Donja ivica se ponovo utapa u pozadinu stranice. Blur je malo svetliji
+nego u verziji 5. Funkcionalnost verzije 6 je zadrzana.
+Cover za galeriju bez snimaka prikazuje se jasno, bez blura.
+Posle brisanja snimaka osvezi spisak preko Pokreni.bat.
