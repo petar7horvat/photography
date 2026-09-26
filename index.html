@@ -175,7 +175,8 @@
 
 <link rel="stylesheet" href="assets/theme.css">
 <link rel="stylesheet" href="assets/vendor/photoswipe.css">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css?v=video4">
+<link rel="stylesheet" href="assets/album-video.css?v=4">
 
 
 <!-- =========================================================
@@ -189,7 +190,9 @@
 <script defer src="assets/masonry.js"></script>
 <script defer src="assets/photo-order.js"></script>
 <script defer src="assets/viewer-history.js"></script>
-<script defer src="assets/app.js"></script>
+<script defer src="assets/snimci.js"></script>
+<script defer src="assets/album-video.js?v=4"></script>
+<script defer src="assets/app.js?v=video4"></script>
 
 
 <!-- =========================================================
@@ -300,7 +303,7 @@
 </div></section>
 </main>
 <section class="contact-strip"><div class="container"><a class="contact-button" href="index.html?stranica=kontakt">KONTAKT</a></div></section>
-<footer class="site-footer container"><p>Petar Horvat Photography</p></footer>
+
 <template id="contact-template">
   <div class="container contact-page">
     <section class="contact-hero" aria-labelledby="contact-name">
@@ -314,7 +317,9 @@
     <section class="gear" aria-labelledby="gear-title"><h2 id="gear-title" class="eyebrow">OPREMA</h2><ul class="gear-list"><li>EOS R6 Mk III</li><li>EOS 40D</li><li>EF 50mm f/1.4</li><li>EF 85mm f/1.8</li><li>EF 28–135mm</li><li>DJI Mini 4 Pro</li></ul></section>
   </div>
 </template>
-<template id="gallery-template"><div class="container"><section class="album-intro"><a class="back-link" href="index.html#galerije"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 5-7 7 7 7M5 12h14"/></svg> Sve galerije</a><div class="album-title-row"><h1 id="album-title">Galerija</h1></div><div class="album-bar"><nav class="album-tabs" id="album-tabs" aria-label="Izaberi galeriju"><a href="index.html?galerija=automobili">Automobili</a><a href="index.html?galerija=portreti">Portreti</a><a href="index.html?galerija=zivotinje">Životinje</a><a href="index.html?galerija=dron">Dron</a><a href="index.html?galerija=pejzazi">Pejzaži</a><a href="index.html?galerija=hrana">Hrana</a><a href="index.html?galerija=enterijeri">Enterijeri</a></nav></div></section><div id="album-status" class="album-status" role="status"><p>Učitavanje fotografija…</p></div><div id="photo-grid" class="photo-grid" aria-label="Fotografije u galeriji"></div><section class="album-end" id="album-end" hidden><div><p class="eyebrow">Sledeća galerija</p><a id="next-album" class="text-link"><h2></h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a></div><a href="index.html#galerije" class="back-link">Sve galerije</a></section></div></template>
+<template id="gallery-template"><section class="album-hero" aria-labelledby="album-title">
+<div class="album-video-backdrop" aria-hidden="true"><canvas class="album-video-blur-frame"></canvas></div><video class="album-background-video" aria-hidden="true" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback tabindex="-1"></video>
+<div class="container album-intro"><div class="album-title-row"><h1 id="album-title">Galerija</h1></div></div></section><div class="container"><div class="album-bar"><nav class="album-tabs" id="album-tabs" aria-label="Izaberi galeriju"><a href="index.html?galerija=automobili">Automobili</a><a href="index.html?galerija=portreti">Portreti</a><a href="index.html?galerija=zivotinje">Životinje</a><a href="index.html?galerija=dron">Dron</a><a href="index.html?galerija=pejzazi">Pejzaži</a><a href="index.html?galerija=hrana">Hrana</a><a href="index.html?galerija=enterijeri">Enterijeri</a></nav></div><div id="album-status" class="album-status" role="status"><p>Učitavanje fotografija…</p></div><div id="photo-grid" class="photo-grid" aria-label="Fotografije u galeriji"></div><section class="album-end" id="album-end" hidden><a id="next-album" class="next-album-link"><p class="eyebrow">Sledeća galerija</p><div class="next-album-title"><h2></h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></div></a></section></div></template>
 <noscript><p class="container">Za otvaranje galerija i kontakta uključi JavaScript. E-mail: <a href="mailto:petar7horvat@gmail.com">petar7horvat@gmail.com</a>.</p></noscript>
 </body>
 </html>

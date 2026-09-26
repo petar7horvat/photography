@@ -1,0 +1,77 @@
+PETAR HORVAT - VIDEO ZAGLAVLJA GALERIJA
+
+1. Sadrzaj ovog ZIP-a raspakuj u postojeci folder sajta, pored index.html.
+   Prihvati zamenu fajlova. Tvoj postojeci folder slike ostaje na mestu.
+   Paket ne sadrzi tvoje fotografije ni gotove video-snimke.
+
+2. Kopiraj MP4 snimke u slike/snimci/.
+   Podrzani nazivi su:
+   automobili1.mp4, automobili2.mp4, ...
+   portreti1.mp4, portreti2.mp4, ...
+   zivotinje1.mp4, zivotinje2.mp4, ...
+   dron1.mp4, dron2.mp4, ...
+   pejzazi1.mp4, pejzazi2.mp4, ...
+   hrana1.mp4, hrana2.mp4, ...
+   enterijeri1.mp4, enterijeri2.mp4, ...
+
+   Prihvata i nazive bez broja, npr. portreti.mp4.
+   Brojevi ne moraju biti uzastopni: 1, 3 i 7 su u redu.
+   Spisak pamti tacnu ekstenziju i velika/mala slova imena.
+
+3. Dvoklik na Pokreni.bat automatski osvezava assets/snimci.js i otvara sajt.
+   Windows PowerShell je dovoljan; ne instalira se nista i nema servera.
+   Osvezi-snimke.bat radi samo osvezavanje spiska, bez otvaranja sajta.
+
+   Ako otvaras direktno index.html, koristi se poslednji sacuvani spisak.
+   Pocetna verzija spiska vec ima snimak broj 1 za svaku galeriju.
+   Posle dodavanja ili brisanja snimaka ponovo pokreni Pokreni.bat.
+   Ako Windows prijavi gresku, pokretac prikazuje poruku i ceka taster.
+
+4. Za GitHub Pages: prvo pokreni Osvezi-snimke.bat na svom racunaru,
+   pa objavi fajlove sajta, novi assets/snimci.js i slike/snimci/.
+   Na GitHubu se nista ne izvrsava osim HTML/CSS/JavaScript sajta.
+   BAT fajlovi sluze samo za pripremu na tvom racunaru.
+
+PONASANJE
+Pri svakom ulasku u galeriju nasumicno se bira jedan njen snimak.
+Ne preuzima se cela kolekcija videa radi izbora. Isti izbor moze da se ponovi.
+Snimak je iza naslova galerije, a pocinje odmah ispod headera.
+Video je bez zvuka i u petlji. Visina zaglavlja prilagodjava se odnosu stranica.
+Uvecanje je ograniceno na 1.18 u odnosu na prikaz celog kadra: ako bi potpuno
+popunjavanje zahtevalo vece odsecanje, preostali prostor popunjava blur.
+To ogranicava ukupno odsecanje po jednoj dimenziji na priblizno 15%.
+Blur koristi jedan mali kadar videa, bez dodatnog videa koji se reprodukuje.
+Header je smanjen na 76px na racunaru, odnosno 64px na uskim ekranima.
+Video se pauzira kada zaglavlje izadje iz kadra, kada se otvori fotografija
+ili meni, ili kada se predje u drugi tab. Kontrole videa su uklonjene.
+Ako browser blokira autoplay ili je ukljuceno smanjeno kretanje/usteda
+podataka, ostaje poster fotografija.
+Ako snimak nedostaje ili nije podrzan, pokusava drugi iz spiska.
+Ako nijedan ne radi, ostaje cover fotografija iz slike/cover/thumbs/.
+Ako nijedan snimak nije naveden, pokusava podrazumevani naziv broj 1.
+
+IZMENE U VERZIJI 4
+Uklonjene kontrole videa, linkovi Sve galerije i tekst footera.
+Video pocinje neposredno ispod headera i zadrzava naslov preko sebe.
+Ivice videa se postepeno utapaju u blur, umesto ostre granice.
+Naslovi galerija su malo manji.
+Ceo donji blok Sledeca galerija vodi na prikazanu narednu galeriju.
+Dvoklik/dvostruki dodir povecava fotografiju 1.5 puta u odnosu na pocetni
+prikaz (+50%), a sledeci vraca na pocetni prikaz.
+
+PODESAVANJA
+assets/album-video.css:
+--album-video-max-zoom: 1.18; maksimalno uvecanje (1 = ceo kadar).
+--album-video-min-height: 340px; minimalna visina (300px na telefonu).
+--album-video-max-height: min(64svh, 660px); gornja granica visine.
+--album-video-blur: 26px; jacina zamucenja slobodnog prostora.
+--album-video-edge-fade: clamp(24px, 4vw, 60px); sirina prelaza ivica u blur.
+assets/style.css: --site-header-height podesava visinu headera.
+
+Za siroku kompatibilnost koristi MP4 sa H.264 videom, bez audio trake.
+Praktican cilj: 5-12 sekundi, 1280x720 ili 1920x1080, kratak/lak fajl.
+Ova izmena ne komprimuje tvoje snimke automatski.
+
+Promenjeni postojeci fajlovi: index.html, assets/app.js i assets/style.css.
+Dodato: assets/album-video.js, assets/album-video.css, assets/snimci.js,
+Pokreni.bat, Osvezi-snimke.bat i ovo uputstvo.
