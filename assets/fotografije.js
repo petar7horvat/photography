@@ -299,14 +299,14 @@ window.FOTOGRAFIJE = {
     },
     {
       "file": "7M3A6453.jpg",
-      "width": 3872,
-      "height": 2581,
+      "width": 2581,
+      "height": 3872,
       "alt": "Fotografija iz galerije Portreti"
     },
     {
       "file": "7M3A6572.jpg",
-      "width": 3872,
-      "height": 2581,
+      "width": 1066,
+      "height": 1600,
       "alt": "Fotografija iz galerije Portreti"
     },
     {
